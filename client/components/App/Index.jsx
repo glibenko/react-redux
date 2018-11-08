@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'redux';
+import { connect } from 'react-redux';
 import { fetchI } from '../../actions';
 
 function fetchData() {
@@ -13,23 +13,30 @@ function fetchData() {
 
 export class App extends Component {
 
+
     constructor(props) {
         super(props);
         console.log('props', props);
         this.state = {
             loading: false,
             error: false,
-            img: ['https://picsum.photos/200/200/?image=128'],
+            img: [],
         }
     }
 
+    shouldComponentUpdate(nextProps) {
+        console.log('nextProps', nextProps)
+        return true;
+    }
+
+
     handler = () => {
-        fetchData().then(res => this.setState({ img: [res]}))
+        fetchData().then(res => this.props.fetchData(res))
     }
 
     componentDidMount() {
         // console.log('fetchData()', fetchData())
-        fetchData().then(res => this.setState({ img: [res]}))
+        fetchData().then(res => this.props.fetchData(res))
         // this.setState({ img: [fetchData()] })
     }
 
@@ -39,8 +46,8 @@ export class App extends Component {
                 <div onClick={this.handler}>
                     get img
                 </div>
-                {
-                    this.state.img.map((el, i) => <img key={i} src={el} alt=""/>)
+                {this.props.img &&
+                    this.props.img.map((el, i) => <img key={i} src={el} alt=""/>)
                 }
                 
             </div>
@@ -48,15 +55,15 @@ export class App extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     return {
-        img: state.img
+        img: state.img,
     };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
     return {
-        fetchData: (img) => dispatch(fetchI(img))
+        fetchData: img => dispatch(fetchI(img)),
     };
 };
 

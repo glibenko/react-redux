@@ -4,3 +4,10 @@ export function fetchI(img) {
         img
     }
 }
+
+export function fetchT(img) {
+    return {
+        type: 'FETCH_IMG_T',
+        img
+    }
+}

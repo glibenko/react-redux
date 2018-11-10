@@ -1,43 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchI } from '../../actions';
+import { fetchI } from '../actions';
 
 function fetchData() {
     return fetch('https://picsum.photos/200/200/?random')
         .then(res => res.url)
         .then(url => {
-            console.log('url', url);
+            // console.log('url', url);
             return url;
         });
 }
 
-export class App extends Component {
+export class PlainRedux extends Component {
 
 
     constructor(props) {
         super(props);
-        console.log('props', props);
         this.state = {
             loading: false,
             error: false,
-            img: [],
+            img: '',
         }
     }
-
-    shouldComponentUpdate(nextProps) {
-        console.log('nextProps', nextProps)
-        return true;
-    }
-
 
     handler = () => {
         fetchData().then(res => this.props.fetchData(res))
     }
 
     componentDidMount() {
-        // console.log('fetchData()', fetchData())
         fetchData().then(res => this.props.fetchData(res))
-        // this.setState({ img: [fetchData()] })
+    }
+
+    componentDidUpdate() {
+        // console.log('this.props.img', this.props.img)
     }
 
     render() {
@@ -47,7 +42,8 @@ export class App extends Component {
                     get img
                 </div>
                 {this.props.img &&
-                    this.props.img.map((el, i) => <img key={i} src={el} alt=""/>)
+                    // this.props.img.map((el, i) => <img key={i} src={el} alt=""/>)
+                    <img src={this.props.img} alt=""/>
                 }
                 
             </div>
@@ -57,7 +53,7 @@ export class App extends Component {
 
 const mapStateToProps = state => {
     return {
-        img: state.img,
+        img: state,
     };
 };
 
@@ -67,4 +63,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(PlainRedux);

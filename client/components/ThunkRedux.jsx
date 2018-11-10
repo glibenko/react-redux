@@ -9,7 +9,7 @@ function fetchData() {
             .then(url => {
                 console.log('url', url);
                 dispatch(fetchT(url));
-                return url;   
+                return url;
             });
     }
 }

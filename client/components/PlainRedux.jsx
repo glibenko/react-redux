@@ -1,15 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchI } from '../actions';
-
-function fetchData() {
-    return fetch('https://picsum.photos/200/200/?random')
-        .then(res => res.url)
-        .then(url => {
-            // console.log('url', url);
-            return url;
-        });
-}
+import { fetchDataG } from '../actions';
 
 export class PlainRedux extends Component {
 
@@ -23,12 +14,32 @@ export class PlainRedux extends Component {
         }
     }
 
+    fetchDataG = () => {
+        return fetch('https://picsum.photos/200/200/?random')
+            .then(res => res.url)
+            .then(url => {
+                // console.log('url', url);
+                setTimeout(() => {
+                    console.log('url', url);
+                    this.props.fetchData(url);
+                    // this.props.fetchData('lala');
+                    //return url;
+                }, 3000);
+                
+            });
+    }
+
     handler = () => {
-        fetchData().then(res => this.props.fetchData(res))
+        // fetchDataG().then(res => this.props.fetchData(res))
+         this.fetchDataG();
+        // this.props.fetchData();
     }
 
     componentDidMount() {
-        fetchData().then(res => this.props.fetchData(res))
+        // this.props.fetchData();
+         this.fetchDataG();
+   
+       
     }
 
     componentDidUpdate() {
@@ -53,13 +64,14 @@ export class PlainRedux extends Component {
 
 const mapStateToProps = state => {
     return {
-        img: state,
+        img: state.img,
     };
 };
 
 const mapDispatchToProps = dispatch => {
+    console.log(dispatch)
     return {
-        fetchData: img => dispatch(fetchI(img)),
+        fetchData: img => dispatch(fetchDataG(dispatch)),
     };
 };
 

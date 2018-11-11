@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchT } from '../actions';
+import { fetchLoad } from '../actions';
 
-function fetchData() {
-    return async (dispatch, getState) => {
-        fetch('https://picsum.photos/200/200/?random')
-            .then(res => res.url)
-            .then(url => {
-                console.log('url', url);
-                dispatch(fetchT(url));
-                return url;
-            });
-    }
-}
+// function fetchDataF() {
+//     return (dispatch, getState) => {
+//         console.log('getState', getState);
+//         fetch('https://picsum.photos/200/200/?random')
+//             .then(res => res.url)
+//             .then(url => {
+//                 console.log('url', url);
+//                 dispatch(fetchT(url));
+//                 return url;
+//             });
+//     }
+// }
 
 export class ThunkRedux extends Component {
     constructor(props) {
@@ -26,12 +27,12 @@ export class ThunkRedux extends Component {
 
     handler = () => {
         console.log('object')
-        console.log('object-2', fetchData())
-        fetchData()
+        // console.log('object-2', fetchData())
+        this.props.fetchData()
     }
 
     componentDidMount() {
-        fetchData()
+        this.props.fetchData()
     }
 
     componentDidUpdate() {
@@ -55,14 +56,16 @@ export class ThunkRedux extends Component {
 }
 
 const mapStateToProps = state => {
+    console.log('state', state)
     return {
-        img: state,
+        img: state.imgT,
     };
 };
 
 const mapDispatchToProps = dispatch => {
+    console.log(dispatch)
     return {
-        fetchData: img => dispatch(fetchT(img)),
+        fetchData: () => dispatch(fetchLoad()),
     };
 };
 

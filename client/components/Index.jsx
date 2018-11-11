@@ -7,7 +7,7 @@ export default function App() {
     return (
         <div>
             <PlainRedux />
-            <ThunkRedux />
+            {/* <ThunkRedux /> */}
         </div>
     );
 }

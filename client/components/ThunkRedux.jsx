@@ -3,50 +3,50 @@ import { connect } from 'react-redux';
 import { fetchLoad } from '../actions';
 
 export class ThunkRedux extends Component {
-    handler = () => {
-        this.props.fetchData()
-    }
+  handler = () => {
+    this.props.fetchData()
+  }
 
-    componentDidMount() {
-        this.props.fetchData()
-    }
+  componentDidMount() {
+    this.props.fetchData()
+  }
 
-    render() {
-        const {
-            containerBlock,
-            name,
-            btn,
-            img
-        } = this.props;
+  render() {
+    const {
+      containerBlock,
+      name,
+      btn,
+      img
+    } = this.props;
 
-        return (
-            <div style={containerBlock}>
-                <div style={name}>
-                    Redux Thunk
-                </div>
-                <div
-                    onClick={this.handler}
-                    onKeyDown={this.handler}
-                    style={btn}
-                >
-                    get img
-                </div>
-                {img && <img src={img} alt="" />}
-            </div>
-        );
-    }
+    return (
+      <div style={containerBlock}>
+        <div style={name}>
+          Redux Thunk
+        </div>
+        <div
+          onClick={this.handler}
+          onKeyDown={this.handler}
+          style={btn}
+        >
+          get img
+        </div>
+        {img && <img src={img} alt="" />}
+      </div>
+    );
+  }
 }
 
-const mapStateToProps = state => {
-    return {
-        img: state.imgT,
-    };
-};
+const mapStateToProps = state => (
+  {
+    img: state.imgT,
+  }
+);
 
-const mapDispatchToProps = dispatch => {
-    return {
-        fetchData: () => dispatch(fetchLoad()),
-    };
-};
+const mapDispatchToProps = dispatch => (
+  {
+    fetchData: () => dispatch(fetchLoad()),
+  }
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ThunkRedux);

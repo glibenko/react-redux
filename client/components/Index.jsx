@@ -1,6 +1,6 @@
 import React from 'react';
-import PlainRedux from './PlainRedux.jsx';
-import ThunkRedux from './ThunkRedux.jsx';
+import { PlainRedux } from './PlainRedux';
+import { ThunkRedux } from './ThunkRedux';
 
 export default function App() {
   const container = {

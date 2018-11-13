@@ -67,7 +67,7 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[path][name]-[hash].[ext]',
-              outputPath: 'fonts/'
+              outputPath: 'fonts/',
             },
           },
         ],
@@ -76,10 +76,14 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "[name].[hash].css",
-      chunkFilename: "[id].[hash].css"
-    })
+      filename: '[name].[hash].css',
+      chunkFilename: '[id].[hash].css',
+    }),
   ],
+  resolve: {
+    extensions: ['*', '.js', '.jsx'],
+    modules: [path.resolve(__dirname, 'client'), 'node_modules'],
+  },
   mode: NODE_ENV,
   watch: NODE_ENV === 'development',
 };

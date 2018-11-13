@@ -8,8 +8,8 @@ import {
 } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import { img, imgT } from './reducers/Index';
-import App from './components/Index.jsx';
+import { img, imgT } from './reducers';
+import App from './components';
 
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

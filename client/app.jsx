@@ -8,14 +8,14 @@ import {
 } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import { img, imgT } from './reducers';
+import { reduxPlane, reduxThunk } from './reducers';
 import App from './components';
 
 
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-  combineReducers({ img, imgT }),
+  combineReducers({ reduxPlane, reduxThunk }),
   composeEnhancer(applyMiddleware(thunk))
   // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );

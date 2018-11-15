@@ -58,3 +58,28 @@ export function loadThunk() {
       });
   };
 }
+
+export function fetchSaga(img) {
+  return {
+    type: 'FETCH_IMG_SAGA',
+    img,
+  };
+}
+
+export function fetchSagaLoading(boolean) {
+  return {
+    type: 'FETCH_LOADING_SAGA',
+    loading: boolean,
+  };
+}
+
+export function fetchSagaError(boolean) {
+  return {
+    type: 'FETCH_ERROR_SAGA',
+    error: boolean,
+  };
+}
+
+export function saga() {
+  return { type: 'FETCH_SAGA' };
+};

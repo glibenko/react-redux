@@ -30,3 +30,16 @@ export function reduxThunk(state = initialState, action) {
       return state;
   }
 }
+
+export function reduxSaga(state = initialState, action) {
+  switch (action.type) {
+    case 'FETCH_IMG_SAGA':
+      return Object.assign({}, state, { img: action.img });
+    case 'FETCH_LOADING_SAGA':
+      return Object.assign({}, state, { loading: action.loading });
+    case 'FETCH_ERROR_SAGA':
+      return Object.assign({}, state, { error: action.error });
+    default:
+      return state;
+  }
+}

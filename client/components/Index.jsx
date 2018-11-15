@@ -1,6 +1,7 @@
 import React from 'react';
 import PlainRedux from './PlainRedux';
 import ThunkRedux  from './ThunkRedux';
+import ReduxSaga  from './ReduxSaga';
 
 export default function App() {
   const container = {
@@ -31,6 +32,11 @@ export default function App() {
         btn={btn}
       />
       <ThunkRedux
+        containerBlock={containerBlock}
+        name={name}
+        btn={btn}
+      />
+      <ReduxSaga
         containerBlock={containerBlock}
         name={name}
         btn={btn}

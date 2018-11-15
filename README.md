@@ -2,8 +2,6 @@
 
 This app shows us a difference between plain Redux, Redux-Thunk, Saga
 
-![alt text](https://raw.githubusercontent.com/njiyto/react-redux/master/ui.png "UI")
-
 This App using:
 * React
 * Redux

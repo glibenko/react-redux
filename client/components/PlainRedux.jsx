@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
+
 import {
   fetchPlane,
   fetchPlaneLoading,
-  fetchPlaneLoaded,
   fetchPlaneError,
 } from '../actions';
 
@@ -11,12 +12,13 @@ export class PlainRedux extends Component {
   fetchData = () => {
     const { data, setLoading, setError } = this.props;
     setLoading(true);
-    fetch('https://picsum.photos/200/200/?random')
-      .then(res => res.url)
-      .then(url => {
+    axios.get('https://picsum.photos/200/200/?random', {
+      responseType: 'blob',
+    })
+      .then(res => {
         // throw 'Parameter is not a number!';
         setTimeout(() => {
-          data(url);
+          data(res.request.responseURL);
           setLoading(false);
         }, 3000);
       })

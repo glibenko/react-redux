@@ -21,7 +21,7 @@ if (NODE_ENV === 'production') {
 
 module.exports = {
   entry: [
-    'babel-polyfill',
+    '@babel/polyfill',
     path.resolve(__dirname, 'client', 'app.jsx'),
   ],
   output: {

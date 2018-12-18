@@ -1,16 +1,16 @@
 module.exports = {
-    transform: {
-      "^.+\\.jsx?$": "babel-jest"
-    },
-    moduleDirectories: [
-		"node_modules"
-	],
-  	"modulePaths": [
-		"./src"
-	],
-  	"moduleNameMapper": {
-		"\\.(css|less|scss|sass)$": "identity-obj-proxy"
-	},
+  transform: {
+    "^.+\\.jsx?$": "babel-jest"
+  },
+  moduleDirectories: [
+  "node_modules"
+  ],
+  "modulePaths": [
+  "./src"
+  ],
+  "moduleNameMapper": {
+  "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+  },
 // 	testURL: "https://localhost:3000",
 // 	"globals": {
 // 		"__DEV__": false,

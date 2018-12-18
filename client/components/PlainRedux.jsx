@@ -9,23 +9,20 @@ import {
 } from '../actions';
 
 export class PlainRedux extends Component {
-  fetchData = () => {
+  fetchData = async () => {
     const { data, setLoading, setError } = this.props;
     setLoading(true);
-    axios.get('https://picsum.photos/200/200/?random', {
-      responseType: 'blob',
-    })
-      .then(res => {
-        // throw 'Parameter is not a number!';
-        setTimeout(() => {
-          data(res.request.responseURL);
-          setLoading(false);
-        }, 3000);
-      })
-      .catch(() => {
+    try {
+      const res = await axios.get('https://picsum.photos/200/200/?random', { responseType: 'blob' });
+      setTimeout(() => {
+        data(res.request.responseURL);
         setLoading(false);
-        setError(true);
-      });
+      }, 3000);
+    } catch (err) {
+      setLoading(false);
+      setError(true);
+      console.log('fetchData err', err);
+    }
   }
 
   handler = () => {

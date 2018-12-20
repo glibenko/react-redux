@@ -10,15 +10,29 @@ import {
 
 export class PlainRedux extends Component {
   fetchData = async () => {
+       const {
+      containerBlock,
+      name,
+      btn,
+      img,
+      loading,
+      error,
+    } = this.props;
     const { data, setLoading, setError } = this.props;
+    console.log('object', loading);
     setLoading(true);
     try {
+       console.log('object-2');
       const res = await axios.get('https://picsum.photos/200/200/?random', { responseType: 'blob' });
-      setTimeout(() => {
+      console.log('object-3', res);
+      // setTimeout(() => {
+
         data(res.request.responseURL);
         setLoading(false);
-      }, 3000);
+        console.log('object-4', loading);
+      // }, 3000);
     } catch (err) {
+       console.log('object-5');
       setLoading(false);
       setError(true);
       console.log('fetchData err', err);

@@ -14,12 +14,14 @@ const presets = [
   '@babel/preset-react',
   // '@babel/preset-env',
   // 'babel-preset-flow',
-  // '@babel/preset-flow',
+  '@babel/preset-flow',
 ];
 
 const plugins = [
+  ['@babel/plugin-proposal-decorators', { legacy: true }],
   '@babel/plugin-transform-arrow-functions',
-  '@babel/plugin-proposal-class-properties',
+  ['@babel/plugin-proposal-class-properties', { loose: true }],
+
   // '@babel/plugin-proposal-optional-chaining',
 ];
 

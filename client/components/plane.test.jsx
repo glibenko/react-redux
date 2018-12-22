@@ -16,17 +16,8 @@ import { reduxPlane, reduxThunk, reduxSaga } from '../reducers';
 import sagas from '../sagas';
 import PlainRedux from './PlainRedux';
 import action from './action';
-import {
-  fetchPlane,
-  fetchPlaneLoading,
-  fetchPlaneError,
-} from '../actions';
 
-// jest.mock('axios');
-// jest.useFakeTimers();
 jest.mock('./action');
-
-
 
 const sagaMiddleware = createSagaMiddleware();
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -41,7 +32,12 @@ const store = createStore(
 
 sagaMiddleware.run(sagas);
 
+const resp = { request: { responseURL: 'https://picsum.photos/200/200/?image=367' } };
+const resp2 = { request: { responseURL: 'https://picsum.photos/200/200/?image=1' } };
+const respError = 'err';
+
 describe('PlainRedux', () => {
+  let wrapper;
   function init() {
     return mount(
       <Provider store={store}>
@@ -50,35 +46,42 @@ describe('PlainRedux', () => {
     );
   }
 
-  it('happy case', async () => {
-    // const resp = { request: { responseURL: 'https://picsum.photos/200/200/?image=367' } };
-    // action.mockImplementationOnce(() => Promise.resolve(resp));
-    // action.mockImplementationOnce(() => Promise.resolve(resp));
-  action();
-    const wrapper = await init();
-    console.log(wrapper.debug());
-    // console.log('object', wrapper.exists('.block'))
-    // wrapper.find('.btn').simulate('click');
-// console.log('object', wrapper.find('img').html())
-    console.log(wrapper.debug());
-    expect(wrapper.find('.block')).toBeTruthy();
-    expect(wrapper.find('.name')).toBeTruthy();
-    expect(wrapper.find('.btn')).toBeTruthy();
-
-    // expect(wrapper.props().children.props.containerBlock).toBeTruthy();
-    // expect(wrapper.props().children.props.name).toBeTruthy();
-    // expect(wrapper.props().children.props.btn).toBeTruthy();
+  afterEach(() => {
+    wrapper.unmount();
   });
 
 
-  // it('fetch data', async () => {
+  it('happy case', async () => {
+    action.mockImplementationOnce(() => Promise.resolve(resp));
+    wrapper = await init();
+    wrapper.update();
+    expect(wrapper.exists('.block')).toBeTruthy();
+    expect(wrapper.exists('.name')).toBeTruthy();
+    expect(wrapper.exists('.btn')).toBeTruthy();
+    expect(wrapper.find('img').prop('src')).toEqual('https://picsum.photos/200/200/?image=367');
+  });
 
-  //   // const resp = { request: { responseURL: 'https://picsum.photos/200/200/?image=367' } };
-  //   // // const br = await axios.get.mockImplementation(() => Promise.resolve(resp));
-  //   // // console.log('br', br);
-  //   // axios.get.mockImplementation(async () => resp);
-  //   const wrapper = await init();
+  it('update after click', async () => {
+    const req = {};
+    req.promises = [];
+    action.mockImplementationOnce(() => Promise.resolve(resp));
+    wrapper = await init();
+    wrapper.update();
+    expect(wrapper.find('img').prop('src')).toEqual('https://picsum.photos/200/200/?image=367');
+    action.mockImplementationOnce(() => Promise.resolve(resp2));
+    wrapper.find('.btn').simulate('click');
+    await Promise.all(req.promises);
+    wrapper.update();
+    expect(wrapper.find('img').prop('src')).toEqual('https://picsum.photos/200/200/?image=1');
+  });
 
-  //    console.log(wrapper.debug());
-  // });
+  it('img error', async () => {
+    const req = {};
+    req.promises = [];
+    action.mockImplementationOnce(() => Promise.resolve(respError));
+    wrapper = await init();
+    await Promise.all(req.promises);
+    wrapper.update();
+    expect(wrapper.exists('img')).toBeFalsy();
+  });
 });

@@ -1,4 +1,6 @@
 // @flow
+import axios from 'axios';
+
 export function fetchPlane(img: string): Object {
   return {
     type: 'FETCH_IMG_PLANE',
@@ -54,14 +56,10 @@ type Dispatch = (action: Action | ThunkAction | PromiseAction | Array<Action>) =
 export function loadThunk(): ThunkAction {
   return (dispatch) => {
     dispatch(fetchThunkLoading(true));
-    fetch('https://picsum.photos/200/200/?random')
-      .then(res => res.url)
-      .then((img) => {
-        // throw 'Parameter is not a number!';
-        setTimeout(() => {
-          dispatch(fetchThunkLoading(false));
-          dispatch(fetchThunk(img));
-        }, 3000);
+    axios.get('https://picsum.photos/200/200/?random', { responseType: 'blob' })
+      .then((res) => {
+        dispatch(fetchThunkLoading(false));
+        dispatch(fetchThunk(res.request.responseURL));
       })
       .catch(() => {
         dispatch(fetchThunkLoading(false));

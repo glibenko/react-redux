@@ -1,46 +1,64 @@
+// @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { saga } from '../actions';
 
-export class ReduxSaga extends Component {
-  handler = () => {
-    this.props.fetchData()
+import styles from './index.css';
+
+type State = {
+  reduxSaga: {
+    img: string,
+    loading: boolean,
+    error: boolean
+  }
+};
+
+const mapStateToProps = (state: State) => (
+  {
+    img: state.reduxSaga.img,
+    loading: state.reduxSaga.loading,
+    error: state.reduxSaga.error,
+  }
+);
+
+type Dispatch = (action: Function) => any;
+
+const mapDispatchToProps = (dispatch: Dispatch) => (
+  {
+    fetchData: () => dispatch(saga()),
+  }
+);
+
+type Props = {
+  img: string,
+  loading: boolean,
+  error: boolean,
+  fetchData: Function
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
+export default class ReduxSaga extends Component<Props> {
+  componentDidMount() {
+    const { fetchData } = this.props;
+    fetchData();
   }
 
-  componentDidMount() {
-    this.props.fetchData()
+  handler = () => {
+    const { fetchData } = this.props;
+    fetchData();
   }
 
   render() {
-    const {
-      containerBlock,
-      name,
-      btn,
-      img,
-      loading,
-      error,
-    } = this.props;
+    const { img, loading, error } = this.props;
 
     return (
-      <div
-        style={containerBlock}
-      >
-        <div style={name}> Redux Saga</div>
+      <div className={styles.block}>
+        <div className={styles.name}> Redux </div>
         {loading
-          ? (
-            <div
-              style={btn}
-            >
-              loading...
-            </div>
-          )
+          ? <div className={styles.btn}> loading... </div>
           : (
-            <div
-              onClick={this.handler}
-              onKeyDown={this.handler}
-              style={btn}
-            >
-              get img
+            <div onClick={this.handler} onKeyDown={this.handler} className={styles.btn} role="button" tabIndex="0">
+                get img
             </div>
           )
         }
@@ -50,19 +68,3 @@ export class ReduxSaga extends Component {
     );
   }
 }
-
-const mapStateToProps = state => (
-  {
-    img: state.reduxSaga.img,
-    loading: state.reduxSaga.loading,
-    error: state.reduxSaga.error,
-  }
-);
-
-const mapDispatchToProps = dispatch => (
-  {
-    fetchData: () => dispatch(saga()),
-  }
-);
-
-export default connect(mapStateToProps, mapDispatchToProps)(ReduxSaga);

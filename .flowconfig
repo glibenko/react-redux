@@ -8,5 +8,6 @@
 
 [options]
 esproposal.decorators=ignore
+#module.name_mapper='.*(.css.scss)' -> '{}'
 
 [strict]

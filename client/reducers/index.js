@@ -1,3 +1,17 @@
+// @flow
+
+type State = {
+  img: string,
+  loading: boolean,
+  error: boolean,
+};
+
+type Action = {
+  type: string,
+  img: string,
+  loading: boolean,
+  error: boolean
+};
 
 const initialState = {
   img: '',
@@ -5,7 +19,7 @@ const initialState = {
   error: false,
 };
 
-export function reduxPlane(state = initialState, action) {
+export function reduxPlane(state: State = initialState, action: Action): State {
   switch (action.type) {
     case 'FETCH_IMG_PLANE':
       return Object.assign({}, state, { img: action.img });
@@ -18,7 +32,7 @@ export function reduxPlane(state = initialState, action) {
   }
 }
 
-export function reduxThunk(state = initialState, action) {
+export function reduxThunk(state: State = initialState, action: Action) {
   switch (action.type) {
     case 'FETCH_IMG_THUNK':
       return Object.assign({}, state, { img: action.img });
@@ -31,7 +45,7 @@ export function reduxThunk(state = initialState, action) {
   }
 }
 
-export function reduxSaga(state = initialState, action) {
+export function reduxSaga(state: State = initialState, action: Action) {
   switch (action.type) {
     case 'FETCH_IMG_SAGA':
       return Object.assign({}, state, { img: action.img });

@@ -10,7 +10,15 @@ import {
 
 import styles from './index.css';
 
-const mapStateToProps = state => (
+type State = {
+  reduxPlane: {
+    img: string,
+    loading: boolean,
+    error: boolean
+  }
+};
+
+const mapStateToProps = (state: State) => (
   {
     img: state.reduxPlane.img,
     loading: state.reduxPlane.loading,
@@ -18,11 +26,13 @@ const mapStateToProps = state => (
   }
 );
 
-const mapDispatchToProps = dispatch => (
+type Dispatch = (action: Function) => any;
+
+const mapDispatchToProps = (dispatch: Dispatch) => (
   {
-    data: img => dispatch(fetchPlane(img)),
-    setLoading: boolean => dispatch(fetchPlaneLoading(boolean)),
-    setError: boolean => dispatch(fetchPlaneError(boolean)),
+    data: (img: string) => dispatch(fetchPlane(img)),
+    setLoading: (boolean: boolean) => dispatch(fetchPlaneLoading(boolean)),
+    setError: (boolean: boolean) => dispatch(fetchPlaneError(boolean)),
   }
 );
 

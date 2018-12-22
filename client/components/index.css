@@ -1,21 +1,21 @@
 .container {
-  display: 'flex';
-  justify-content: 'center';
-};
+  display: flex;
+  justify-content: center;
+}
 
 .block {
-  height: '400px';
-  width: '210px';
-  text-align: 'center';
-};
+  height: 400px;
+  width: 210px;
+  text-align: center;
+}
 
 .name {
-  font-size: '18px';
-  font-weight: 'bold';
-};
+  font-size: 18px;
+  font-weight: bold;
+}
 
 .btn {
-  padding: '20px';
-  color: 'blue';
-  cursor: 'pointer';
-};
+  padding: 20px;
+  color: blue;
+  cursor: pointer;
+}
